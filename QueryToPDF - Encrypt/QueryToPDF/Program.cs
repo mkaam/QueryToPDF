@@ -91,6 +91,16 @@ namespace QueryToPDF
                 catch (IOException) { }
             }
 
+            IEnumerable<FileInfo> OldLogFiles = GetOldFiles(logPath, DateTime.Now.AddDays(-30));
+            foreach (FileInfo oldfile in OldLogFiles)
+            {
+                try
+                {
+                    File.Delete(oldfile.FullName);
+                }
+                catch (IOException) { }
+            }
+
             string logFile = logPath + Path.GetFileNameWithoutExtension(outputfile).ToString() + "_LOG.txt";
 
             Debug.WriteLine("Log will be saved on " + logFile);
