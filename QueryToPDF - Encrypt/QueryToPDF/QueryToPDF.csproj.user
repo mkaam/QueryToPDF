@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>server PMIIDSUBDEV42\DEV2012 db Users query E:\Interface\SAMPOERNA\QTPEncrypt\Query\PDFReport_DN_QTP.sql output "\\PMIIDSUBDEV38\iSMSMirrorDirectory%24\ftp_SBW_prd\3.PRD\Import\PDF\DN\ORDER\Detail\2020-11-30-15-24-DN-TSBW010\2020-11-30-15-24-DN-SBW0355589-SBW0000257.pdf" xsltfile E:\Interface\SAMPOERNA\QTPEncrypt\xslt\DN_Format_A4.xslt Variable param1=%27SBW0355589%27 ownerPass=201130</StartArguments>
+  </PropertyGroup>
+</Project>

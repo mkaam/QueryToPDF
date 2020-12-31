@@ -1,0 +1,12 @@
+select top 10 BPPBNumber, wms_inventory_bppb_temp.productcode, sum (case when movementtypecode = 'LOADTOVAN   ' and trxtype = 'INITIAL' and MovementEndPointStockStatus = 'O' then movementproductquantity else 0 end) as STOKAWAL  , sum (case when movementtypecode = 'LOADTOVAN   ' and trxtype = 'CORR ADD'   and MovementEndPointStockStatus = 'O' then movementproductquantity else 0 end)  as TAMBAH , sum (case when movementtypecode = 'UNLOADFRVAN    ' and trxtype = 'CORR MIN'  and MovementEndPointStockStatus = 'O' then movementproductquantity else 0 end)  as  KURANG  ,   sum(x.qty) as JUAL ,'0' as RETURNOK , sum (case when movementtypecode = 'UNLOADFRVAN    '   and MovementEndPointStockStatus = 'E' then movementproductquantity else 0 end) as RETURNBS   ,  sum (case when movementtypecode = 'VANTOCUS    '   and MovementEndPointStockStatus = 'O' then movementproductquantity else 0 end) as REWARD , sum (case when movementtypecode = 'UNLOADFRVAN'   and MovementEndPointStockStatus = 'O'  and trxtype = 'DOWNLOAD' then movementproductquantity else 0 end) as STOCKAKHIR   from wms_inventory_bppb_temp
+inner join (SELECT        Journey.JourneyCode, Product.ProductCode, sum(SalesOrderProduct.SalesOrderProductQuantity) qty
+FROM            z_ISMS_TRG.dbo.SalesOrder INNER JOIN
+                         z_ISMS_TRG.dbo.Visit ON SalesOrder.SalesOrder_VisitId = Visit.VisitId INNER JOIN
+                         z_ISMS_TRG.dbo.Journey ON Visit.Visit_JourneyId = Journey.JourneyId INNER JOIN
+                         z_ISMS_TRG.dbo.SalesType ON SalesOrder.SalesOrder_SalesTypeId = SalesType.SalesTypeId INNER JOIN
+                         z_ISMS_TRG.dbo.SalesOrderProduct ON SalesOrder.SalesOrderId = SalesOrderProduct.SalesOrderProduct_SalesOrderId INNER JOIN
+                         z_ISMS_TRG.dbo.ProductConversionRule ON SalesOrderProduct.SalesOrderProduct_ProductConversionRuleId = ProductConversionRule.ProductConversionRuleId INNER JOIN
+                         z_ISMS_TRG.dbo.Product ON ProductConversionRule.ProductConversionRule_ProductId = Product.ProductId
+                         where salestypecode = 'HHSALES' and salesorderstatus  = 'I'
+                         group by   Journey.JourneyCode, Product.ProductCode )  x on x.journeycode = wms_inventory_bppb_temp.JourneyCode and x.ProductCode = wms_inventory_bppb_temp.ProductCode
+group by BPPBNumber, wms_inventory_bppb_temp.productcode

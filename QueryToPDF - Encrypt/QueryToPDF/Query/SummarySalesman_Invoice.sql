@@ -1,0 +1,1 @@
+select Column1, Column2, Column3, Column4, Column5, Column6, Column7 from Temp_SummarySalesman_Invoice with (nolock)

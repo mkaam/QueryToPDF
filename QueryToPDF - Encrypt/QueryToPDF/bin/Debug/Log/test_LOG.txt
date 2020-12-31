@@ -1,0 +1,46 @@
+
+Log Entry : 5:06:24 PM Tuesday, October 13, 2020
+  :
+  :'as' is an invalid attribute for the 'xsl:variable' element.
+-------------------------------
+
+Log Entry : 5:06:24 PM Tuesday, October 13, 2020
+  :
+  :Generate PDF Error Cause of Cannot generate PDF: Exit with code 1 due to network error: ProtocolUnknownError (exit code: 1)
+-------------------------------
+
+Log Entry : 10:04:55 AM Wednesday, November 4, 2020
+  :
+  :Generate PDF Error Cause of Cannot generate PDF:   <https://wkhtmltopdf.org/support.html> (exit code: 1)
+-------------------------------
+
+Log Entry : 10:08:52 AM Wednesday, November 4, 2020
+  :
+  :Generate PDF Error Cause of Cannot generate PDF:   <https://wkhtmltopdf.org/support.html> (exit code: 1)
+-------------------------------
+
+Log Entry : 11:42:31 AM Wednesday, November 4, 2020
+  :
+  :.xslt file doesn't exist. please recheck!!! 
+ PDF WILL BE FORMATTED AS C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\bin\Debug\raw-test.xslt
+-------------------------------
+
+Log Entry : 11:42:32 AM Wednesday, November 4, 2020
+  :
+  :Could not find file 'C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\bin\Debug\raw-test.xslt'.
+-------------------------------
+
+Log Entry : 11:42:32 AM Wednesday, November 4, 2020
+  :
+  :Generate PDF Error Cause of Cannot generate PDF: Exit with code 1 due to network error: ProtocolUnknownError (exit code: 1)
+-------------------------------
+
+Log Entry : 12:59:20 PM Wednesday, November 4, 2020
+  :
+  :Generate PDF Error Cause of Cannot generate PDF:   <https://wkhtmltopdf.org/support.html> (exit code: 1)
+-------------------------------
+
+Log Entry : 12:59:34 PM Wednesday, November 4, 2020
+  :
+  :Generate PDF Error Cause of Cannot generate PDF:   <https://wkhtmltopdf.org/support.html> (exit code: 1)
+-------------------------------

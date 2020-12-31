@@ -1,0 +1,51 @@
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\bin\Debug\QueryToPDF.exe.config
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\bin\Debug\QueryToPDF.exe
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\bin\Debug\QueryToPDF.pdb
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\bin\Debug\NReco.PdfGenerator.dll
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\bin\Debug\NReco.PdfGenerator.xml
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\obj\Debug\QueryToPDF.csproj.CoreCompileInputs.cache
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\obj\Debug\QueryToPDF.csproj.CopyComplete
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\obj\Debug\QueryToPDF.exe
+C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\obj\Debug\QueryToPDF.pdb
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\bin\Debug\QueryToPDF.exe.config
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\bin\Debug\QueryToPDF.exe
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\bin\Debug\QueryToPDF.pdb
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\bin\Debug\NReco.PdfGenerator.dll
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\bin\Debug\NReco.PdfGenerator.xml
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\obj\Debug\QueryToPDF.csproj.CoreCompileInputs.cache
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\obj\Debug\QueryToPDF.csproj.CopyComplete
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\obj\Debug\QueryToPDF.exe
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\obj\Debug\QueryToPDF.pdb
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Copy\QueryToPDF\obj\Debug\QueryToPDF.csprojAssemblyReference.cache
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\bin\Debug\QueryToPDF.exe.config
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\bin\Debug\QueryToPDF.exe
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\bin\Debug\QueryToPDF.pdb
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\bin\Debug\NReco.PdfGenerator.dll
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\bin\Debug\NReco.PdfGenerator.xml
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\obj\Debug\QueryToPDF.csprojAssemblyReference.cache
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\obj\Debug\QueryToPDF.csproj.CoreCompileInputs.cache
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\obj\Debug\QueryToPDF.csproj.CopyComplete
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\obj\Debug\QueryToPDF.exe
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\obj\Debug\QueryToPDF.pdb
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encode\QueryToPDF\bin\Debug\itextsharp.dll
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.exe.config
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.exe
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.pdb
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\itextsharp.dll
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\NReco.PdfGenerator.dll
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\NReco.PdfGenerator.xml
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.csproj.CoreCompileInputs.cache
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.csproj.CopyComplete
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.exe
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.pdb
+C:\Users\dsujadi\Source\Repos\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.csprojAssemblyReference.cache
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.exe.config
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.exe
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.pdb
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\itextsharp.dll
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\NReco.PdfGenerator.dll
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\NReco.PdfGenerator.xml
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.csprojAssemblyReference.cache
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.csproj.CopyComplete
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.exe
+C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.pdb

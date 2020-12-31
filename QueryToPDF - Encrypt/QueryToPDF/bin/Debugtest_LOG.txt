@@ -1,0 +1,6 @@
+
+Log Entry : 10:34:56 AM Tuesday, September 8, 2020
+  :
+  :.xslt file doesn't exist. please recheck!!! 
+ PDF WILL BE FORMATTED AS C:\Users\dsujadi\Source\Repos\QueryToPDF\QueryToPDF\bin\Debug\raw-test.xslt
+-------------------------------
