@@ -62,18 +62,7 @@ namespace QueryToPDF
             string fileName = Path.GetFileName(outputfile);
             string logPath = di + @"\Log\";
             string tempFolder = di + @"\Temp\";
-
-            IEnumerable<FileInfo> oldfiles = GetOldFiles(tempFolder, DateTime.Now.AddDays(-7));
-            foreach (FileInfo oldfile in oldfiles)
-            {
-                try
-                {
-                    File.Delete(oldfile.FullName);
-                }
-                catch (IOException) { }
-            }
-            
-
+       
             if (Directory.Exists(@logPath))
                 {
                     Debug.WriteLine("Log Folder exists, please check if there is any errors");
@@ -90,6 +79,16 @@ namespace QueryToPDF
             else
             {
                 Directory.CreateDirectory(@tempFolder);
+            }
+
+            IEnumerable<FileInfo> oldfiles = GetOldFiles(tempFolder, DateTime.Now.AddDays(-7));
+            foreach (FileInfo oldfile in oldfiles)
+            {
+                try
+                {
+                    File.Delete(oldfile.FullName);
+                }
+                catch (IOException) { }
             }
 
             string logFile = logPath + Path.GetFileNameWithoutExtension(outputfile).ToString() + "_LOG.txt";

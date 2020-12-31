@@ -14,7 +14,6 @@ C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\QueryToPDF.p
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\itextsharp.dll
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NReco.PdfGenerator.dll
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NReco.PdfGenerator.xml
-C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Release\QueryToPDF.csprojAssemblyReference.cache
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Release\QueryToPDF.csproj.CopyComplete
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Release\QueryToPDF.exe
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Release\QueryToPDF.pdb
