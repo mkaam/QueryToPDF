@@ -49,3 +49,13 @@ C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - E
 C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.csproj.CopyComplete
 C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.exe
 C:\Users\mamrulla\OneDrive - Philip Morris International\#aam\App\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.pdb
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.exe.config
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.exe
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\QueryToPDF.pdb
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\itextsharp.dll
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\NReco.PdfGenerator.dll
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Debug\NReco.PdfGenerator.xml
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.csprojAssemblyReference.cache
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.csproj.CopyComplete
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.exe
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Debug\QueryToPDF.pdb

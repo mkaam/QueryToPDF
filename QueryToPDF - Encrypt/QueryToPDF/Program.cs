@@ -41,6 +41,10 @@ namespace QueryToPDF
             string queryfile = args[5];
             string outputfile = args[7];
 
+            // 2021-02-19 skip if output file is exist
+
+            
+
             string pass = "";
             string ownerPass = "";
             float margintop = 0;
@@ -103,6 +107,12 @@ namespace QueryToPDF
 
             string logFile = logPath + Path.GetFileNameWithoutExtension(outputfile).ToString() + "_LOG.txt";
 
+            if (File.Exists(outputfile))
+            {
+                CreateLog($"{outputfile} is exist. Skip...", logFile);
+                Environment.Exit(0);
+            }
+
             Debug.WriteLine("Log will be saved on " + logFile);
 
             if (Directory.Exists(@HTMLFolder))
@@ -155,21 +165,57 @@ namespace QueryToPDF
                     }
                     if (args[i].Contains('='))
                     {
-                        int indexOfEqualsChar = args[i].IndexOf('=');
-                        if (indexOfEqualsChar != -1)
+                        var VariableParam = args[i].Split('=');
+                        int countParam=0;
+                        foreach (string par in VariableParam)
                         {
-                            valueOfParams.Add(args[i].Remove(0, indexOfEqualsChar + 1));
-                            listOfParams.Add(args[i].Remove(indexOfEqualsChar, args[i].Length - indexOfEqualsChar));
-                            //pageWidth = 76
-                            if (args[i].Contains("pageHeight"))
-                            {
-                                pageHeight = float.Parse(args[i].Remove(0, indexOfEqualsChar + 1), System.Globalization.CultureInfo.InvariantCulture);
+                            countParam += 1;
+                            if (countParam == 1) listOfParams.Add(par);
+                            else if (countParam == VariableParam.Length) {
+                                valueOfParams.Add(par);
                             }
-                            if (args[i].Contains("pageWidth"))
+                            else
                             {
-                                pageWidth = float.Parse(args[i].Remove(0, indexOfEqualsChar + 1), System.Globalization.CultureInfo.InvariantCulture);
+                                if (par.Contains(' '))
+                                {
+                                    string tempstr = par.Split(' ')[par.Split(' ').GetUpperBound(0)];
+                                    listOfParams.Add(tempstr);
+                                    valueOfParams.Add(par.Replace($" {tempstr}", ""));
+                                }
+                                else
+                                {
+                                    valueOfParams.Add(par);
+                                }
                             }
+                            
                         }
+                        if (args[i].Contains("pageHeight"))
+                        {
+                            int indexOfEqualsChar = args[i].IndexOf('=');
+                            pageHeight = float.Parse(args[i].Remove(0, indexOfEqualsChar + 1), System.Globalization.CultureInfo.InvariantCulture);
+                        }
+                        if (args[i].Contains("pageWidth"))
+                        {
+                            int indexOfEqualsChar = args[i].IndexOf('=');
+                            pageWidth = float.Parse(args[i].Remove(0, indexOfEqualsChar + 1), System.Globalization.CultureInfo.InvariantCulture);
+                        }
+
+                        // 20210125 remark by Aam : wrong logic to determine multiple variable, fixing on above this code
+                        //int indexOfEqualsChar = args[i].IndexOf('=');
+                        //if (indexOfEqualsChar != -1)
+                        //{
+                        //    valueOfParams.Add(args[i].Remove(0, indexOfEqualsChar + 1));
+                        //    listOfParams.Add(args[i].Remove(indexOfEqualsChar, args[i].Length - indexOfEqualsChar));
+                        //    //pageWidth = 76
+                        //    if (args[i].Contains("pageHeight"))
+                        //    {
+                        //        pageHeight = float.Parse(args[i].Remove(0, indexOfEqualsChar + 1), System.Globalization.CultureInfo.InvariantCulture);
+                        //    }
+                        //    if (args[i].Contains("pageWidth"))
+                        //    {
+                        //        pageWidth = float.Parse(args[i].Remove(0, indexOfEqualsChar + 1), System.Globalization.CultureInfo.InvariantCulture);
+                        //    }
+                        //}
                     }
 
                     if(args[i] == "custom")
@@ -324,93 +370,99 @@ namespace QueryToPDF
             SqlDataAdapter daAuthors = new SqlDataAdapter(scriptSQL, sqlcon);
             DataSet dsPubs = new DataSet("Pubs");
 
-            daAuthors.FillSchema(dsPubs, SchemaType.Source, "Authors");
+            // 2021-01-26 remark by Aam, if column name not standard , this cause trouble, eg: [nama customer]
+            //daAuthors.FillSchema(dsPubs, SchemaType.Source, "Authors");
             daAuthors.Fill(dsPubs, "Authors");
 
             DataTable dt;
             dt = dsPubs.Tables["Authors"];
 
-            TextWriter writer = new StringWriter();
-            dt.WriteXml(writer);
-            String result;
-            StreamWriter sw;
-            string tempHTMLFile = @tempFolder + Path.GetFileNameWithoutExtension(outputfile).ToString() + ".html";
-
-            Console.WriteLine("Jumlah Data " + dt.Rows.Count);
-
-            //string tempPDFFile = @tempFolder + fileName;
-
-            //if (File.Exists(tempHTMLFile))
-            //{
-            //    File.Delete(tempHTMLFile);
-            //}
-
-            //if (File.Exists(tempPDFFile))
-            //{
-            //    File.Delete(tempPDFFile);
-            //}
-
-            //if (File.Exists(@outputfile))
-            //{
-            //    File.Delete(@outputfile);
-            //}
-
-            try
+            if (dt.Rows.Count > 0)
             {
-                result = new XsltHelper().GetValue(@HTMLFormatFile, writer.ToString());
-                sw = new StreamWriter(tempHTMLFile, false);
-                sw.WriteLine(result);
-                sw.Flush();
-                sw.Close();
-            }
-            catch (Exception e)
-            {
-                CreateLog(e.Message, logFile);
-            }
+                TextWriter writer = new StringWriter();
+                dt.WriteXml(writer);
+                String result;
+                StreamWriter sw;
+                string tempHTMLFile = @tempFolder + Path.GetFileNameWithoutExtension(outputfile).ToString() + ".html";
 
-            Console.WriteLine("HTML SAVED ON " + tempHTMLFile);
+                Console.WriteLine("Jumlah Data " + dt.Rows.Count);
 
-            HtmlToPdfConverter htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
-            try
-            {
-                if (custom == true)
+                //string tempPDFFile = @tempFolder + fileName;
+
+                //if (File.Exists(tempHTMLFile))
+                //{
+                //    File.Delete(tempHTMLFile);
+                //}
+
+                //if (File.Exists(tempPDFFile))
+                //{
+                //    File.Delete(tempPDFFile);
+                //}
+
+                //if (File.Exists(@outputfile))
+                //{
+                //    File.Delete(@outputfile);
+                //}
+
+                try
                 {
-                    htmlToPdf.CustomWkHtmlArgs = " --print-media-type --dpi 300 --disable-smart-shrinking";
-                    //htmlToPdf.Zoom = 0.85f;
-                    htmlToPdf.PageHeight = pageHeight;
-                    htmlToPdf.PageWidth = pageWidth;
+                    result = new XsltHelper().GetValue(@HTMLFormatFile, writer.ToString());
+                    sw = new StreamWriter(tempHTMLFile, false);
+                    sw.WriteLine(result);
+                    sw.Flush();
+                    sw.Close();
                 }
-                var margins = new PageMargins
+                catch (Exception e)
                 {
-                    Top = margintop,
-                    Bottom = marginbtm,
-                    Left = marginleft,
-                    Right = marginright
-                };
+                    CreateLog(e.Message, logFile);
+                }
 
-                htmlToPdf.Margins = margins;
+                Console.WriteLine("HTML SAVED ON " + tempHTMLFile);
 
-                string temp_outputfile = @tempFolder + "temp_" + fileName;
-                htmlToPdf.GeneratePdfFromFile(tempHTMLFile, null, temp_outputfile);
-
-                using (var input = new FileStream(temp_outputfile, FileMode.Open, FileAccess.Read, FileShare.Read))
+                HtmlToPdfConverter htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
+                try
                 {
-                    using (var output = new FileStream(outputfile, FileMode.Create, FileAccess.Write, FileShare.None))
+                    if (custom == true)
                     {
-                        if (ownerPass == "") ownerPass = pass;
-                        var reader = new PdfReader(input);
-                        PdfEncryptor.Encrypt(reader, output, true, pass, ownerPass, PdfWriter.ALLOW_PRINTING);
+                        htmlToPdf.CustomWkHtmlArgs = " --print-media-type --dpi 300 --disable-smart-shrinking";
+                        //htmlToPdf.Zoom = 0.85f;
+                        htmlToPdf.PageHeight = pageHeight;
+                        htmlToPdf.PageWidth = pageWidth;
                     }
-                }
+                    var margins = new PageMargins
+                    {
+                        Top = margintop,
+                        Bottom = marginbtm,
+                        Left = marginleft,
+                        Right = marginright
+                    };
 
-                //File.Copy(@tempFolder + fileName, outputfile);
-                //File.Delete(temp_outputfile);
-                //File.Delete(tempHTMLFile);
+                    htmlToPdf.Margins = margins;
+
+                    string temp_outputfile = @tempFolder + "temp_" + fileName;
+                    htmlToPdf.GeneratePdfFromFile(tempHTMLFile, null, temp_outputfile);
+
+                    using (var input = new FileStream(temp_outputfile, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    {
+                        using (var output = new FileStream(outputfile, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            if (ownerPass == "") ownerPass = pass;
+                            var reader = new PdfReader(input);
+                            PdfEncryptor.Encrypt(reader, output, true, pass, ownerPass, PdfWriter.ALLOW_PRINTING);
+                        }
+                    }
+
+                    //File.Copy(@tempFolder + fileName, outputfile);
+                    //File.Delete(temp_outputfile);
+                    //File.Delete(tempHTMLFile);
+                }
+                catch (Exception e)
+                {
+                    CreateLog("Generate PDF Error Cause of " + e.Message, logFile);
+                }
             }
-        catch (Exception e)
-        {
-            CreateLog("Generate PDF Error Cause of " + e.Message, logFile);
-        }
+
+
 
     }
 
