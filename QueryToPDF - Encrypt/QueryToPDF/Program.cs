@@ -124,7 +124,7 @@ namespace QueryToPDF
                 Directory.CreateDirectory(@HTMLFolder);
             }
 
-            Console.WriteLine("WORKING ON" + di.ToString() + "\n" + "HTML WILL BE SAVED ON " + HTMLFolder);
+            //Console.WriteLine("WORKING ON" + di.ToString() + "\n" + "HTML WILL BE SAVED ON " + HTMLFolder);
 
             if (args.Length > 7)
             {
@@ -142,7 +142,7 @@ namespace QueryToPDF
                         {
                             HTMLFormatFile = di + @"\raw-test.xslt";
                             CreateLog(".xslt file doesn't exist. please recheck!!! \n PDF WILL BE FORMATTED AS " + HTMLFormatFile, logFile);
-                            Console.WriteLine("PDF WILL BE FORMATTED AS " + HTMLFormatFile);
+                            //Console.WriteLine("PDF WILL BE FORMATTED AS " + HTMLFormatFile);
                         }
                     }
                     if (args[i].Contains('~'))
@@ -320,7 +320,7 @@ namespace QueryToPDF
                 HTMLFormatFile = di + @"\raw.xslt";
                 if (File.Exists(HTMLFormatFile))
                 {
-                    Console.WriteLine("PDF WILL BE FORMATTED AS " + HTMLFormatFile);
+                    CreateLog("PDF WILL BE FORMATTED AS " + HTMLFormatFile, logFile);
                 }
                 else
                 {
@@ -342,7 +342,7 @@ namespace QueryToPDF
             {
                 if (sqlcon.State == ConnectionState.Closed)
                     sqlcon.Open();
-                Console.WriteLine("Open Connection Succeess");
+                //Console.WriteLine("Open Connection Succeess");
             }
             catch (Exception e)
             {
@@ -365,7 +365,7 @@ namespace QueryToPDF
                 }
             }
 
-            Console.WriteLine(scriptSQL);
+            //Console.WriteLine(scriptSQL);
 
             SqlDataAdapter daAuthors = new SqlDataAdapter(scriptSQL, sqlcon);
             DataSet dsPubs = new DataSet("Pubs");
@@ -385,7 +385,7 @@ namespace QueryToPDF
                 StreamWriter sw;
                 string tempHTMLFile = @tempFolder + Path.GetFileNameWithoutExtension(outputfile).ToString() + ".html";
 
-                Console.WriteLine("Jumlah Data " + dt.Rows.Count);
+                //Console.WriteLine("Jumlah Data " + dt.Rows.Count);
 
                 //string tempPDFFile = @tempFolder + fileName;
 
@@ -417,7 +417,7 @@ namespace QueryToPDF
                     CreateLog(e.Message, logFile);
                 }
 
-                Console.WriteLine("HTML SAVED ON " + tempHTMLFile);
+                //Console.WriteLine("HTML SAVED ON " + tempHTMLFile);
 
                 HtmlToPdfConverter htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
                 try
