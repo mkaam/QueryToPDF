@@ -85,7 +85,7 @@ namespace QueryToPDF
                 Directory.CreateDirectory(@tempFolder);
             }
 
-            IEnumerable<FileInfo> oldfiles = GetOldFiles(tempFolder, DateTime.Now.AddDays(-7));
+            IEnumerable<FileInfo> oldfiles = GetOldFiles(tempFolder, DateTime.Now.AddDays(-3));
             foreach (FileInfo oldfile in oldfiles)
             {
                 try
@@ -95,14 +95,15 @@ namespace QueryToPDF
                 catch (IOException) { }
             }
 
-            IEnumerable<FileInfo> OldLogFiles = GetOldFiles(logPath, DateTime.Now.AddDays(-30));
+            IEnumerable<FileInfo> OldLogFiles = GetOldFiles(logPath, DateTime.Now.AddDays(-7));
             foreach (FileInfo oldfile in OldLogFiles)
             {
                 try
                 {
                     File.Delete(oldfile.FullName);
                 }
-                catch (IOException) { }
+                catch (IOException) {
+                }
             }
 
             string logFile = logPath + Path.GetFileNameWithoutExtension(outputfile).ToString() + "_LOG.txt";
@@ -366,16 +367,25 @@ namespace QueryToPDF
             }
 
             //Console.WriteLine(scriptSQL);
+            SqlDataAdapter daAuthors;
+            DataSet dsPubs;
+            DataTable dt = new DataTable();
+            try
+            {
+                daAuthors = new SqlDataAdapter(scriptSQL, sqlcon);
+                dsPubs = new DataSet("Pubs");
 
-            SqlDataAdapter daAuthors = new SqlDataAdapter(scriptSQL, sqlcon);
-            DataSet dsPubs = new DataSet("Pubs");
+                // 2021-01-26 remark by Aam, if column name not standard , this cause trouble, eg: [nama customer]
+                //daAuthors.FillSchema(dsPubs, SchemaType.Source, "Authors");
+                daAuthors.Fill(dsPubs, "Authors");
+               
+                dt = dsPubs.Tables["Authors"];
+            }
+            catch (Exception ex)
+            {
+                CreateLog(ex.Message, logFile);
+            }
 
-            // 2021-01-26 remark by Aam, if column name not standard , this cause trouble, eg: [nama customer]
-            //daAuthors.FillSchema(dsPubs, SchemaType.Source, "Authors");
-            daAuthors.Fill(dsPubs, "Authors");
-
-            DataTable dt;
-            dt = dsPubs.Tables["Authors"];
 
             if (dt.Rows.Count > 0)
             {

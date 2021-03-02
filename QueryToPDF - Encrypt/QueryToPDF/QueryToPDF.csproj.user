@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>server PMIIDSUBDEV42\DEV2012 db Users query E:\INTERFACE\SAMPOERNA\QTPEncrypt\Query\PDFReport_BPPB_QTP-Aam.sql output \\hmsismsSDAprd.id.pmi\ftp_SDA_prd%24\3.PRD\Import\PDF\BPPB\BPPBA4\20210219\2021-02-19-17-04-BPPB-SDA028.pdf Variable paramPositionCode=%27SDA028%27 paramJourneyEndDateTime=%272021-02-19%27</StartArguments>
+    <StartArguments>server PMIIDSUBDEV42\DEV2012 db Users query E:\SSISFiles\PDFReportLPUTA\query\PDFReport_LPU_TA_QTP.sql output "\\hmsismsJKTprd.id.pmi\ftp_JKT_prd%24\3.PRD\Import\PDF_ForTA\LPU\TA\20210302\2021-03-02-16-32-LPU-AJKT001-Shipper.pdf" xsltfile E:\SSISFiles\PDFReportLPUTA\xslt\LPU_Format_A4_ForTA.xslt Variable paramCourierName=%27AJKT001-Shipper%27 paramJourneyEndDate=%272021-03-02%27 paramGenerateDate="%272021-03-02 17:51:56%27"</StartArguments>
   </PropertyGroup>
 </Project>
