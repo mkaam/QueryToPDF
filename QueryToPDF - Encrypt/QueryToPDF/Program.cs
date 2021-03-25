@@ -37,7 +37,6 @@ namespace QueryToPDF
 
         #region new code
 
-
         public static void Process(string[] args)
         {
             try
@@ -164,6 +163,7 @@ namespace QueryToPDF
             HtmlToPdfConverter htmlToPdf = new NReco.PdfGenerator.HtmlToPdfConverter();
             try
             {
+
                 if (opt.pagewidth != 0)
                     htmlToPdf.PageWidth = opt.pagewidth;
 

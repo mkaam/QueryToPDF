@@ -2,5 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartArguments>--server PMIIDSUBDEV42\DEV2012 --db Users --query E:\SSISFiles\PDFReportLPU\query\PDFReport_LPU_QTP.sql --output "\\PMIIDSUBDEV38\iSMSMirrorDirectory%24\ftp_JKT_prd%24\3.PRD\Import\PDF\LPU\LPU3inch\20210323\LPU_210323_TJKT028_1848.pdf" --xsltfile E:\SSISFiles\PDFReportLPU\xslt\LPU_Format_3inch.xslt --pageWidth 76 --pageHeight 50 --pass 210323 --Variable paramTerritoryCode=TJKT028 paramJourneyEndDate=2021-03-23</StartArguments>
+
   </PropertyGroup>
 </Project>
