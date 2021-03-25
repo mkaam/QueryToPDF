@@ -31,3 +31,7 @@ C:\Github\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NReco.PdfGenera
 C:\Github\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\CommandLine.xml
 C:\Github\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NReco.PdfGenerator.xml
 C:\Github\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\obj\Release\QueryToPDF.csproj.CopyComplete
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\CommandLine.dll
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NLog.dll
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\CommandLine.xml
+C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NLog.xml
