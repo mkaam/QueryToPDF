@@ -1,0 +1,193 @@
+Start Time,Elapsed Time,Machine Name,Login,Level,Message,Exception
+2021-03-24 11:55:24.8420,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Start,
+2021-03-24 11:55:26.1632,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,"Executing ... : 
+select Format(GETDATE(), 'dddd, dd MMM yyyy hh:mm') as Date, BusnOperationAddress, FullAddress, EmployeeName, UserAccountCode, 
+Product, InitialLoad, CorrAdd, CorrMin, Sales, ReturnOK, ReturnBS, Reward, StockEnd, LoadUnload, V2VIn, V2VOut, (CorrAdd + CorrMin + V2VIn + V2VOut) TambahKurang, Format(JourneyEndDateTime, 'dddd, dd MMM yyyy hh:mm') JourneyEndDateTime from PDFReport_BPPB 
+--where positioncode = 'SSDA021'
+where PositionCode = 'SSDA030' and convert(date,JourneyEndDateTime) = '2021-03-23'
+--25
+--select * from PDFReport_BPPB where EmployeeName like '%Saras%' PositionCode = 'SSDA048'
+
+--print 'A' + CHAR(13) + 'B'
+
+--select * from PDFReport_BPPB
+",
+2021-03-24 11:55:26.3321,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,"Done : 
+select Format(GETDATE(), 'dddd, dd MMM yyyy hh:mm') as Date, BusnOperationAddress, FullAddress, EmployeeName, UserAccountCode, 
+Product, InitialLoad, CorrAdd, CorrMin, Sales, ReturnOK, ReturnBS, Reward, StockEnd, LoadUnload, V2VIn, V2VOut, (CorrAdd + CorrMin + V2VIn + V2VOut) TambahKurang, Format(JourneyEndDateTime, 'dddd, dd MMM yyyy hh:mm') JourneyEndDateTime from PDFReport_BPPB 
+--where positioncode = 'SSDA021'
+where PositionCode = 'SSDA030' and convert(date,JourneyEndDateTime) = '2021-03-23'
+--25
+--select * from PDFReport_BPPB where EmployeeName like '%Saras%' PositionCode = 'SSDA048'
+
+--print 'A' + CHAR(13) + 'B'
+
+--select * from PDFReport_BPPB
+",
+2021-03-24 11:55:33.0452,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Finished. Elapsed time: 8218ms,
+2021-03-24 15:25:48.2830,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Start,
+2021-03-24 15:26:13.9508,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Start,
+2021-03-24 15:26:38.9840,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Start,
+2021-03-24 15:26:39.1401,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Finished. Elapsed time: 168ms,
+2021-03-24 15:26:51.0690,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Start,
+2021-03-24 15:26:51.2359,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Finished. Elapsed time: 182ms,
+2021-03-24 15:27:08.2489,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Start,
+2021-03-24 15:50:56.9313,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Start,
+2021-03-24 15:52:06.9765,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Start,
+2021-03-24 15:52:28.8627,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,"Executing ... : declare @TerritoryCode nvarchar(12) = 'TJKT028' --'TSDA021' --
+declare @JourneyEndDate datetime =  '2021-03-23' --'2020-12-02'
+
+declare @tblDETAIL TABLE (
+	TerritoryCode nvarchar(100),
+	SalesOffice nvarchar(255),
+	SalesOfficeAddress nvarchar(255),
+	EmployeeName nvarchar(255),
+	UserAccountCode nvarchar(20),
+	PaymentFormCode nvarchar(255),
+	ReceiptAmount decimal(17,4),
+	JourneyEndDateTime datetime,
+	GenerateDate nvarchar(255),
+	ReportPart nvarchar(255)
+)
+declare @tblTotal TABLE (
+	ReportPart nvarchar(255),
+	ReceiptAmount decimal(17,4)
+)
+
+declare @tblKASIR TABLE (
+	TerritoryCode nvarchar(100),
+	SalesOffice nvarchar(255),
+	SalesOfficeAddress nvarchar(255),
+	EmployeeName nvarchar(255),
+	UserAccountCode nvarchar(20),
+	PaymentFormCode nvarchar(255),
+	ReceiptAmount decimal(17,4),
+	JourneyEndDateTime datetime,
+	GenerateDate nvarchar(255),
+	ReportPart nvarchar(255)
+)
+
+-- DETAIL
+insert into @tblDETAIL
+select TerritoryCode, SalesOffice,SalesOfficeAddress,EmployeeName,UserAccountCode, PaymentFormCode, SUM(ReceiptAmount) ReceiptAmount, convert(date,JourneyEndDateTime) JourneyEndDateTime, format(JourneyEndDateTime, 'dddd, dd MMM yyyy HH:mm') as GenerateDate, 
+case 
+	when PaymentFormCode in ('BANK TRANSFER', 'CASH', 'CHEQUE', 'DD CASH', 'DD CREDIT', 'GIRO CEK MUNDUR', 'GIRO CEK TUNAI', 'KREDIT/NOPUTIH', 'KREDIT/NOPUTIH', 'PDTCHEQUE', 'SLIP SETORAN ', 'TRANSFER TUNAI', 'UANG TUNAI') THEN 'PENJUALAN'
+	when PaymentFormCode = 'KREDIT NOTA' then 'KREDIT NOTA'
+	when PaymentFormCode in ('PAYMENTCOLLECTION - BANK TRANSFER', 'PAYMENTCOLLECTION - CASH', 'PAYMENTCOLLECTION - CHEQUE', 'PAYMENTCOLLECTION - DD CASH', 'PAYMENTCOLLECTION - DD CREDIT', 'PAYMENTCOLLECTION - GIRO CEK MUNDUR', 'PAYMENTCOLLECTION - GIRO CEK TUNAI', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - KREDIT NOTA', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - PDTCHEQUE', 'PAYMENTCOLLECTION - SLIP SETORAN ', 'PAYMENTCOLLECTION - TRANSFER TUNAI', 'PAYMENTCOLLECTION - UANG TUNAI') then 'PENAGIHAN PIUTANG'
+END
+	AS ReportPart
+from PDFReport_LPU where TerritoryCode = @TerritoryCode and convert(date,JourneyEndDateTime) = @JourneyEndDate
+group by TerritoryCode, SalesOffice,SalesOfficeAddress,EmployeeName,UserAccountCode, PaymentFormCode,convert(date,JourneyEndDateTime), JourneyEndDateTime 
+
+-- KASIR
+insert into @tblKASIR
+select TerritoryCode, SalesOffice,SalesOfficeAddress,EmployeeName,UserAccountCode, PaymentFormCode, SUM(ReceiptAmount) ReceiptAmount, convert(date,JourneyEndDateTime) JourneyEndDateTime, format(JourneyEndDateTime, 'dddd, dd MMM yyyy HH:mm') as GenerateDate, 
+case 
+	when PaymentFormCode in ('BANK TRANSFER', 'CASH', 'CHEQUE', 'DD CASH', 'DD CREDIT', 'GIRO CEK MUNDUR', 'GIRO CEK TUNAI', 'KREDIT/NOPUTIH', 'KREDIT/NOPUTIH', 'PDTCHEQUE', 'SLIP SETORAN ', 'TRANSFER TUNAI', 'UANG TUNAI','PAYMENTCOLLECTION - BANK TRANSFER', 'PAYMENTCOLLECTION - CASH', 'PAYMENTCOLLECTION - CHEQUE', 'PAYMENTCOLLECTION - DD CASH', 'PAYMENTCOLLECTION - DD CREDIT', 'PAYMENTCOLLECTION - GIRO CEK MUNDUR', 'PAYMENTCOLLECTION - GIRO CEK TUNAI', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - KREDIT NOTA', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - PDTCHEQUE', 'PAYMENTCOLLECTION - SLIP SETORAN ', 'PAYMENTCOLLECTION - TRANSFER TUNAI', 'PAYMENTCOLLECTION - UANG TUNAI')  THEN 'PEMBAYARAN KE KASIR'
+END
+	AS ReportPart
+from PDFReport_LPU 
+where TerritoryCode = @TerritoryCode
+AND PaymentFormCode in ('BANK TRANSFER', 'CASH', 'CHEQUE', 'DD CASH', 'DD CREDIT', 'GIRO CEK MUNDUR', 'GIRO CEK TUNAI', 'KREDIT/NOPUTIH', 'KREDIT/NOPUTIH', 'PDTCHEQUE', 'SLIP SETORAN ', 'TRANSFER TUNAI', 'UANG TUNAI',
+	  'PAYMENTCOLLECTION - BANK TRANSFER', 'PAYMENTCOLLECTION - CASH', 'PAYMENTCOLLECTION - CHEQUE', 'PAYMENTCOLLECTION - DD CASH', 'PAYMENTCOLLECTION - DD CREDIT', 'PAYMENTCOLLECTION - GIRO CEK MUNDUR', 'PAYMENTCOLLECTION - GIRO CEK TUNAI', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - KREDIT NOTA', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - PDTCHEQUE', 'PAYMENTCOLLECTION - SLIP SETORAN ', 'PAYMENTCOLLECTION - TRANSFER TUNAI', 'PAYMENTCOLLECTION - UANG TUNAI')
+	  and convert(date,JourneyEndDateTime) = @JourneyEndDate 
+group by TerritoryCode, SalesOffice,SalesOfficeAddress,EmployeeName,UserAccountCode, PaymentFormCode,convert(date,JourneyEndDateTime), JourneyEndDateTime 
+
+-- TOTAL by ReportPart
+insert into @tblTotal
+select ReportPart, SUM(ReceiptAmount) ReceiptAmount FROM (
+	select ReportPart, ReceiptAmount from @tblDETAIL
+	UNION ALL
+	select ReportPart, ReceiptAmount from @tblKASIR
+	UNION ALL
+	select 'TANDA TERIMA' ReportPart, SUM(ReceiptAmount) from @tblDETAIL WHERE ReportPart IN ('PENJUALAN','KREDIT NOTA')
+) a
+group by ReportPart
+
+select  TerritoryCode, SalesOffice, SalesOfficeAddress, EmployeeName, UserAccountCode, REPLACE(PaymentFormCode,'PAYMENTCOLLECTION - ','') PaymentFormCode, ReceiptAmount, JourneyEndDateTime, GenerateDate, ReportPart 
+from @tblDETAIL
+UNION ALL 
+select TerritoryCode, SalesOffice, SalesOfficeAddress, EmployeeName, UserAccountCode, REPLACE(PaymentFormCode,'PAYMENTCOLLECTION - ','') PaymentFormCode, SUM(ReceiptAmount) ReceiptAmount, JourneyEndDateTime, GenerateDate, ReportPart from @tblKASIR
+GROUP BY TerritoryCode, SalesOffice, SalesOfficeAddress, EmployeeName, UserAccountCode, REPLACE(PaymentFormCode,'PAYMENTCOLLECTION - ',''), JourneyEndDateTime, GenerateDate, ReportPart
+UNION ALL
+select @TerritoryCode TerritoryCode, NULL SalesOffice, NULL SalesOfficeAddress, NULL EmployeeName, NULL UserAccountCode, NULL PaymentFormCode, ReceiptAmount, NULL JourneyEndDateTime, NULL GenerateDate, 'TOTAL ' + ReportPart as ReportPart from @tblTotal
+where ReceiptAmount IS NOT NULL",
+2021-03-24 15:52:29.0386,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,"Done : declare @TerritoryCode nvarchar(12) = 'TJKT028' --'TSDA021' --
+declare @JourneyEndDate datetime =  '2021-03-23' --'2020-12-02'
+
+declare @tblDETAIL TABLE (
+	TerritoryCode nvarchar(100),
+	SalesOffice nvarchar(255),
+	SalesOfficeAddress nvarchar(255),
+	EmployeeName nvarchar(255),
+	UserAccountCode nvarchar(20),
+	PaymentFormCode nvarchar(255),
+	ReceiptAmount decimal(17,4),
+	JourneyEndDateTime datetime,
+	GenerateDate nvarchar(255),
+	ReportPart nvarchar(255)
+)
+declare @tblTotal TABLE (
+	ReportPart nvarchar(255),
+	ReceiptAmount decimal(17,4)
+)
+
+declare @tblKASIR TABLE (
+	TerritoryCode nvarchar(100),
+	SalesOffice nvarchar(255),
+	SalesOfficeAddress nvarchar(255),
+	EmployeeName nvarchar(255),
+	UserAccountCode nvarchar(20),
+	PaymentFormCode nvarchar(255),
+	ReceiptAmount decimal(17,4),
+	JourneyEndDateTime datetime,
+	GenerateDate nvarchar(255),
+	ReportPart nvarchar(255)
+)
+
+-- DETAIL
+insert into @tblDETAIL
+select TerritoryCode, SalesOffice,SalesOfficeAddress,EmployeeName,UserAccountCode, PaymentFormCode, SUM(ReceiptAmount) ReceiptAmount, convert(date,JourneyEndDateTime) JourneyEndDateTime, format(JourneyEndDateTime, 'dddd, dd MMM yyyy HH:mm') as GenerateDate, 
+case 
+	when PaymentFormCode in ('BANK TRANSFER', 'CASH', 'CHEQUE', 'DD CASH', 'DD CREDIT', 'GIRO CEK MUNDUR', 'GIRO CEK TUNAI', 'KREDIT/NOPUTIH', 'KREDIT/NOPUTIH', 'PDTCHEQUE', 'SLIP SETORAN ', 'TRANSFER TUNAI', 'UANG TUNAI') THEN 'PENJUALAN'
+	when PaymentFormCode = 'KREDIT NOTA' then 'KREDIT NOTA'
+	when PaymentFormCode in ('PAYMENTCOLLECTION - BANK TRANSFER', 'PAYMENTCOLLECTION - CASH', 'PAYMENTCOLLECTION - CHEQUE', 'PAYMENTCOLLECTION - DD CASH', 'PAYMENTCOLLECTION - DD CREDIT', 'PAYMENTCOLLECTION - GIRO CEK MUNDUR', 'PAYMENTCOLLECTION - GIRO CEK TUNAI', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - KREDIT NOTA', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - PDTCHEQUE', 'PAYMENTCOLLECTION - SLIP SETORAN ', 'PAYMENTCOLLECTION - TRANSFER TUNAI', 'PAYMENTCOLLECTION - UANG TUNAI') then 'PENAGIHAN PIUTANG'
+END
+	AS ReportPart
+from PDFReport_LPU where TerritoryCode = @TerritoryCode and convert(date,JourneyEndDateTime) = @JourneyEndDate
+group by TerritoryCode, SalesOffice,SalesOfficeAddress,EmployeeName,UserAccountCode, PaymentFormCode,convert(date,JourneyEndDateTime), JourneyEndDateTime 
+
+-- KASIR
+insert into @tblKASIR
+select TerritoryCode, SalesOffice,SalesOfficeAddress,EmployeeName,UserAccountCode, PaymentFormCode, SUM(ReceiptAmount) ReceiptAmount, convert(date,JourneyEndDateTime) JourneyEndDateTime, format(JourneyEndDateTime, 'dddd, dd MMM yyyy HH:mm') as GenerateDate, 
+case 
+	when PaymentFormCode in ('BANK TRANSFER', 'CASH', 'CHEQUE', 'DD CASH', 'DD CREDIT', 'GIRO CEK MUNDUR', 'GIRO CEK TUNAI', 'KREDIT/NOPUTIH', 'KREDIT/NOPUTIH', 'PDTCHEQUE', 'SLIP SETORAN ', 'TRANSFER TUNAI', 'UANG TUNAI','PAYMENTCOLLECTION - BANK TRANSFER', 'PAYMENTCOLLECTION - CASH', 'PAYMENTCOLLECTION - CHEQUE', 'PAYMENTCOLLECTION - DD CASH', 'PAYMENTCOLLECTION - DD CREDIT', 'PAYMENTCOLLECTION - GIRO CEK MUNDUR', 'PAYMENTCOLLECTION - GIRO CEK TUNAI', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - KREDIT NOTA', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - PDTCHEQUE', 'PAYMENTCOLLECTION - SLIP SETORAN ', 'PAYMENTCOLLECTION - TRANSFER TUNAI', 'PAYMENTCOLLECTION - UANG TUNAI')  THEN 'PEMBAYARAN KE KASIR'
+END
+	AS ReportPart
+from PDFReport_LPU 
+where TerritoryCode = @TerritoryCode
+AND PaymentFormCode in ('BANK TRANSFER', 'CASH', 'CHEQUE', 'DD CASH', 'DD CREDIT', 'GIRO CEK MUNDUR', 'GIRO CEK TUNAI', 'KREDIT/NOPUTIH', 'KREDIT/NOPUTIH', 'PDTCHEQUE', 'SLIP SETORAN ', 'TRANSFER TUNAI', 'UANG TUNAI',
+	  'PAYMENTCOLLECTION - BANK TRANSFER', 'PAYMENTCOLLECTION - CASH', 'PAYMENTCOLLECTION - CHEQUE', 'PAYMENTCOLLECTION - DD CASH', 'PAYMENTCOLLECTION - DD CREDIT', 'PAYMENTCOLLECTION - GIRO CEK MUNDUR', 'PAYMENTCOLLECTION - GIRO CEK TUNAI', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - KREDIT NOTA', 'PAYMENTCOLLECTION - KREDIT/NOPUTIH', 'PAYMENTCOLLECTION - PDTCHEQUE', 'PAYMENTCOLLECTION - SLIP SETORAN ', 'PAYMENTCOLLECTION - TRANSFER TUNAI', 'PAYMENTCOLLECTION - UANG TUNAI')
+	  and convert(date,JourneyEndDateTime) = @JourneyEndDate 
+group by TerritoryCode, SalesOffice,SalesOfficeAddress,EmployeeName,UserAccountCode, PaymentFormCode,convert(date,JourneyEndDateTime), JourneyEndDateTime 
+
+-- TOTAL by ReportPart
+insert into @tblTotal
+select ReportPart, SUM(ReceiptAmount) ReceiptAmount FROM (
+	select ReportPart, ReceiptAmount from @tblDETAIL
+	UNION ALL
+	select ReportPart, ReceiptAmount from @tblKASIR
+	UNION ALL
+	select 'TANDA TERIMA' ReportPart, SUM(ReceiptAmount) from @tblDETAIL WHERE ReportPart IN ('PENJUALAN','KREDIT NOTA')
+) a
+group by ReportPart
+
+select  TerritoryCode, SalesOffice, SalesOfficeAddress, EmployeeName, UserAccountCode, REPLACE(PaymentFormCode,'PAYMENTCOLLECTION - ','') PaymentFormCode, ReceiptAmount, JourneyEndDateTime, GenerateDate, ReportPart 
+from @tblDETAIL
+UNION ALL 
+select TerritoryCode, SalesOffice, SalesOfficeAddress, EmployeeName, UserAccountCode, REPLACE(PaymentFormCode,'PAYMENTCOLLECTION - ','') PaymentFormCode, SUM(ReceiptAmount) ReceiptAmount, JourneyEndDateTime, GenerateDate, ReportPart from @tblKASIR
+GROUP BY TerritoryCode, SalesOffice, SalesOfficeAddress, EmployeeName, UserAccountCode, REPLACE(PaymentFormCode,'PAYMENTCOLLECTION - ',''), JourneyEndDateTime, GenerateDate, ReportPart
+UNION ALL
+select @TerritoryCode TerritoryCode, NULL SalesOffice, NULL SalesOfficeAddress, NULL EmployeeName, NULL UserAccountCode, NULL PaymentFormCode, ReceiptAmount, NULL JourneyEndDateTime, NULL GenerateDate, 'TOTAL ' + ReportPart as ReportPart from @tblTotal
+where ReceiptAmount IS NOT NULL",
+2021-03-24 15:52:57.7802,,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Finished. Elapsed time: 50816ms,

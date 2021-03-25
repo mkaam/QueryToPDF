@@ -1,0 +1,4 @@
+Start Time,Elapsed Time,Machine Name,Login,Level,Message,Exception
+2021-03-25 10:19:33.8906,    0.0000,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Finished. Elapsed time: 4853ms,
+2021-03-25 10:21:35.4847,    0.0000,PMIIDIDNL07289,PMI\ejoharno,DEBUG,--server PMIIDSUBDEV42\DEV2012 --db Users --query E:\SSISFiles\PDFReportLPU\query\PDFReport_LPU_QTP.sql --output \\PMIIDSUBDEV38\iSMSMirrorDirectory$\ftp_JKT_prd$\3.PRD\Import\PDF\LPU\LPU3inch\20210323\LPU_210323_TJKT028_1848.pdf --xsltfile E:\SSISFiles\PDFReportLPU\xslt\LPU_Format_3inch.xslt --pageWidth 76 --pageHeight 50 --pass 210323 --Variable paramTerritoryCode=TJKT028 paramJourneyEndDate=2021-03-23,
+2021-03-25 10:21:35.5527,    0.0680,PMIIDIDNL07289,PMI\ejoharno,DEBUG,Application Finished. Elapsed time: 4892ms,
