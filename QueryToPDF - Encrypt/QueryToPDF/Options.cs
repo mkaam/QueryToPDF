@@ -9,39 +9,55 @@ namespace QueryToPDF
 {
     class Options
     {
-        [Option(HelpText = "Server name destination")]
+        [Option('s', HelpText = "Server name destination")]
         public string server { get; set; }
-        [Option(HelpText = "Connection string to database")]
+
+        [Option('d', HelpText = "Connection string to database")]
         public string db { get; set; }
-        [Option(HelpText = "Path query file to execute")]
+
+        [Option('q', HelpText = "Path query file to execute")]
         public string query { get; set; }
-        [Option(HelpText = "Path output file")]
+
+        [Option('o', HelpText = "Path output file")]
         public string output { get; set; }
-        [Option(HelpText = "Path Template for html/xlst to PDF")]
+
+        [Option('x', HelpText = "Path Template for html/xlst to PDF")]
         public string xsltfile { get; set; }
-        [Option(HelpText = "for temporary variable")]
+
+        [Option('v', HelpText = "for temporary variable")]
         public IEnumerable<string> variable { get; set; }
-        [Option(HelpText = "Custom for PDF")]
+
+        [Option('c', HelpText = "Custom for PDF")]
         public IEnumerable<string> custom { get; set; }
 
-        [Option(HelpText = "Custom page height PDF", Default = 0)]
+        [Option('g', HelpText = "Custom page height PDF", Default = 0)]
         public float pageheight { get; set; }
-        [Option(HelpText = "Custom page width PDF", Default = 0)]
+
+        [Option('w', HelpText = "Custom page width PDF", Default = 0)]
         public float pagewidth { get; set; }
-        [Option(HelpText = "Custom margin top PDF", Default = 0)]
+
+        [Option('t', HelpText = "Custom margin top PDF", Default = 0)]
         public float margintop { get; set; }
-        [Option(HelpText = "Custom margin bottom PDF", Default = 0)]
+
+        [Option('b', HelpText = "Custom margin bottom PDF", Default = 0)]
         public float marginbottom { get; set; }
-        [Option(HelpText = "Custom margin left PDF", Default = 0)]
+
+        [Option('m', HelpText = "Custom margin left PDF", Default = 0)]
         public float marginleft { get; set; }
-        [Option(HelpText = "Custom margin right PDF", Default = 0)]
+
+        [Option('r', HelpText = "Custom margin right PDF", Default = 0)]
         public float marginright { get; set; }
-        [Option(HelpText = "set owner pass pdf")]
+
+        [Option('y', HelpText = "set owner pass pdf")]
         public string ownerpass { get; set; }
-        [Option(HelpText = "set pass pdf")]
+
+        [Option('p', HelpText = "set pass pdf")]
         public string pass { get; set; }
-        [Option(HelpText = "set path logfile")]
+
+        [Option('l', HelpText = "set path logfile")]
         public string logfile { get; set; }
+
+        [Option('z', HelpText = "log to screen")]
         public bool verbose { get; set; }
 
 
