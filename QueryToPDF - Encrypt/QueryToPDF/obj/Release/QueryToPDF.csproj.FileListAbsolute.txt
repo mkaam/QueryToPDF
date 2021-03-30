@@ -35,3 +35,5 @@ C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\CommandLine.
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NLog.dll
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\CommandLine.xml
 C:\BitBucket\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NLog.xml
+C:\Github\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NLog.dll
+C:\Github\QTPEncrypt\QueryToPDF - Encrypt\QueryToPDF\bin\Release\NLog.xml

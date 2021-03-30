@@ -10,6 +10,7 @@ using iTextSharp.text.pdf;
 using CommandLine;
 using NLog.Layouts;
 using NLog;
+using System.Threading;
 
 namespace QueryToPDF
 {
@@ -23,10 +24,13 @@ namespace QueryToPDF
         private static string LogPath;
         static void Main(string[] args)
         {
+
             if (args.Length > 0)
             {
-                logger = new Logger("log");
-                Process(args);                
+                Thread thClearFile = new Thread(ClearFile);
+                Thread thProcess = new Thread(() => Process(args));
+                thClearFile.Start();
+                thProcess.Start();
             }
             else
             {
@@ -36,6 +40,28 @@ namespace QueryToPDF
         }
 
         #region new code
+        public static void ClearFile()
+        {
+            int backDays = 7;
+            var today = DateTime.Now;
+            string di = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            string tempFolder = di + @"\Temp\";
+
+            var directoryList = Directory.GetDirectories(tempFolder).ToList();
+            List<string> directoriesNotDeleted = new List<string>();
+            directoriesNotDeleted.Add($"{tempFolder}{today.ToString("yyyyMMdd")}");
+
+            for (var i = 1; i <= backDays; i++)
+            {
+                var seq = i * -1;
+                var tempDay = today.AddDays(seq);
+                var dir = $"{tempFolder}{tempDay.ToString("yyyyMMdd")}";
+                directoriesNotDeleted.Add(dir);
+            }
+
+            directoryList = directoryList.Where(x => !directoriesNotDeleted.Contains(x)).ToList();
+            directoryList.ForEach(x => { Directory.Delete(x, true); });
+        }
 
         public static void Process(string[] args)
         {
@@ -46,7 +72,6 @@ namespace QueryToPDF
                 Exepath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 RootPath = Exepath;
                 LogPath = Path.Combine(RootPath, "Logs");
-                logger.Debug("Application Start");
                 _watch = new Stopwatch();
                 _watch.Start();
                 var parser = new Parser(config =>
@@ -58,16 +83,17 @@ namespace QueryToPDF
                     config.HelpWriter = Console.Error;
                 });
                 var result = parser.ParseArguments<Options>(args)
-                    .WithParsed<Options>(s => RunOptions(s))
+                    .WithParsed<Options>(s => RunOptions(s, strArg))
                     .WithNotParsed(errors => HandleParseError(errors));
 
                 if (!ParseError)
                 {
-                    logger.Debug($"{strArg}");
+
                     _watch.Stop();
                     logger.Debug($"Application Finished. Elapsed time: {_watch.ElapsedMilliseconds}ms");
                 }
-            }catch(Exception ex )
+            }
+            catch (Exception ex)
             {
                 logger.Error($"Error : {ex.Message}");
             }
@@ -86,10 +112,13 @@ namespace QueryToPDF
 
         }
 
-        public static void RunOptions(Options opt)
+        public static void RunOptions(Options opt, string strArg)
         {
+            logger = new Logger("log");
             PathConfigure(opt);
             LoggerConfigure(opt);
+            logger.Debug("Application Start");
+            logger.Debug($"{strArg}");
             if (!string.IsNullOrEmpty(opt.query))
             {
                 var queryString = "";
@@ -111,6 +140,7 @@ namespace QueryToPDF
                 var connStr = $"Data Source={opt.server};Initial Catalog={opt.db};Integrated Security=True;Connection Timeout=60;";
                 using (SqlConnection sqlConn = new SqlConnection(connStr))
                 {
+                    logger.Debug("Start execute Query");
                     sqlConn.Open();
                     using (SqlCommand cmd = new SqlCommand())
                     {
@@ -125,12 +155,19 @@ namespace QueryToPDF
                                 da.SelectCommand = cmd;
                                 da.Fill(ds);
                                 dt = ds.Tables[0];
+                                logger.Debug("Finished Execute Query");
                             }
                         }
                     }
                 }
                 if (dt.Rows.Count > 0)
+                {
+                    logger.Debug("Start Generate PDF");
                     CreatePDF(dt, opt);
+                    logger.Debug("Finished Generate PDF");
+
+                }
+
             }
         }
 
@@ -142,13 +179,23 @@ namespace QueryToPDF
             StreamWriter streamWriter;
             string di = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
             string fileName = Path.GetFileName(opt.output);
-            string tempFolder = di + @"\Temp\";
+            var today = DateTime.Now;
+            string tempFolder = di + @"\Temp\" + today.ToString("yyyyMMdd") + "\\";
 
-            string templateHTML = $"tempFolder {Path.GetFileNameWithoutExtension(fileName)}.html";
+            string templateHTML = $"{tempFolder}{Path.GetFileNameWithoutExtension(fileName)}.html";
             string htmlFile = opt.xsltfile;
             try
             {
                 result = new XsltHelper().GetValue(htmlFile, writer.ToString());
+
+                if (!Directory.Exists(tempFolder))
+                    Directory.CreateDirectory(tempFolder);
+
+                if (!File.Exists(templateHTML))
+                    File.Create(templateHTML).Dispose();
+
+
+
                 streamWriter = new StreamWriter(templateHTML, false);
                 streamWriter.WriteLine(result);
                 streamWriter.Flush();
@@ -170,7 +217,7 @@ namespace QueryToPDF
                 if (opt.pageheight != 0)
                     htmlToPdf.PageHeight = opt.pageheight;
 
-                if(opt.pagewidth != 0 || opt.pageheight != 0)
+                if (opt.pagewidth != 0 || opt.pageheight != 0)
                     htmlToPdf.CustomWkHtmlArgs = " --print-media-type --dpi 300 --disable-smart-shrinking";
 
 
@@ -184,7 +231,8 @@ namespace QueryToPDF
 
                 htmlToPdf.Margins = margins;
 
-                string temp_outputfile = @tempFolder + "temp_" + fileName;
+                string temp_outputfile = @tempFolder + fileName;
+                logger.Debug("Start Generate PDF From File");
                 htmlToPdf.GeneratePdfFromFile(templateHTML, null, temp_outputfile);
 
                 using (var input = new FileStream(temp_outputfile, FileMode.Open, FileAccess.Read, FileShare.Read))
@@ -207,6 +255,7 @@ namespace QueryToPDF
                         PdfEncryptor.Encrypt(reader, output, true, opt.pass, opt.ownerpass, PdfWriter.ALLOW_PRINTING);
                     }
                 }
+                logger.Debug("End Generate PDF From File");
             }
             catch (Exception e)
             {
