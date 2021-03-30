@@ -137,7 +137,7 @@ namespace QueryToPDF
                 }
 
                 DataTable dt = new DataTable();
-                var connStr = $"Data Source={opt.server};Initial Catalog={opt.db};Integrated Security=True;Connection Timeout=60;";
+                var connStr = $"Data Source={opt.server};Initial Catalog={opt.db};Integrated Security=True;Connection Timeout=120;";
                 using (SqlConnection sqlConn = new SqlConnection(connStr))
                 {
                     logger.Debug("Start execute Query");
