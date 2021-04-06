@@ -48,10 +48,10 @@ namespace QueryToPDF
         [Option('r', HelpText = "Custom margin right PDF", Default = 0)]
         public float marginright { get; set; }
 
-        [Option('y', HelpText = "set owner pass pdf")]
+        [Option('y', HelpText = "set owner pass pdf", Default = "")]
         public string ownerpass { get; set; }
 
-        [Option('p', HelpText = "set pass pdf")]
+        [Option('p', HelpText = "set pass pdf", Default = "")]
         public string pass { get; set; }
 
         [Option('l', HelpText = "set path logfile")]
