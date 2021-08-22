@@ -145,7 +145,7 @@ namespace QueryToPDF
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = queryString;
-                        cmd.CommandTimeout = 3600;
+                        cmd.CommandTimeout = 900;
                         cmd.Connection = sqlConn;
 
                         using (SqlDataAdapter da = new SqlDataAdapter())
